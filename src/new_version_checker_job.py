@@ -11,6 +11,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
 )
@@ -22,7 +23,6 @@ def get_saved_version() -> Tuple[str, int]:
 
 
 def save_new_version(url: str, new_version: int) -> None:
-    logger.info(f'Saving new version "{new_version}" for url "{url}')
     pass
 
 
@@ -107,14 +107,11 @@ def main():
         logger.info(f'Latest found version is smaller or equal to the last checked version. Exiting')
         return
 
-    try:
-        filename = download_doc(latest_version)
-    except Exception as e:
-        logger.error(e)
-        logger.info('Exiting')
-        return
-
+    logger.info(f'Saving new version "{latest_version}" for url "{saved_url}')
     save_new_version(saved_url, latest_version)
+
+    # Notify users of new version
+
 
 if __name__ == '__main__':
     main()
